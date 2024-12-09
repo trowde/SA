@@ -104,11 +104,11 @@ while running:
     # 数式を生成するタイミング
     if current_time - last_generated_time >= generate_interval * 1000:  # 5秒ごとに生成
         # 左レーン
-        operator_left = random.choices(['+', '-','×', '÷'], weights=[3, 1])[0]
+        operator_left = random.choices(['+', '-','×', '÷'], weights=[3, 1,3,1])[0]
         value_left = random.randint(1, 10)
         
         # 右レーン
-        operator_right = random.choices(['+', '-','×', '÷'], weights=[3, 1])[0]
+        operator_right = random.choices(['+', '-','×', '÷'], weights=[3, 1,3,1])[0]
         value_right = random.randint(1, 10)
         
         # 左右の数式を同時に生成し、垂直位置を合わせる
