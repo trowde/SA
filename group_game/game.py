@@ -24,7 +24,7 @@ BLACK=(0,0,0)
 #initiate
 screen=pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 pygame.display.set_caption('group_game')
-background=[pygame.image.load('level1.jpg'),pygame.image.load('level2.jpg'),pygame.image.load('level3.jpg')]
+background=[pygame.image.load('level1.jpg'),pygame.image.load('level2.jpg'),pygame.image.load('level3.jpg'),pygame.image.load('level4.jpg')]
 music=['level1.mp3','level2.mp3']
 pygame.mixer.music.load("level1.mp3")
 pygame.mixer.music.set_volume(1)
@@ -144,8 +144,8 @@ class Other(pygame.sprite.Sprite):
 
     @staticmethod
     def background_move(y,play_index):
-            screen.blit(background[0],(0,y))
-            screen.blit(background[0],(0,-SCREEN_HEIGHT+y))
+            screen.blit(background[3],(0,y))
+            screen.blit(background[3],(0,-SCREEN_HEIGHT+y))
     @staticmethod
     def background_alter(y,play_index):
          screen.blit(background[play_index-1],(0,-SCREEN_HEIGHT+y))
@@ -219,6 +219,21 @@ while running:
 
 
     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
