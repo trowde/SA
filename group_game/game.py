@@ -24,7 +24,8 @@ background=[pygame.image.load('level1.jpg'),pygame.image.load('level2.jpg'),pyga
 music=['level1.mp3','level2.mp3']
 play_index=0
 #level1_music=pygame.music.load("level1.mp3")
-image=pygame.image.load("player123.png")
+image=pygame.image.load("character.jpg")
+image=pygame.transform.scale(image,(80,80))
 image.set_colorkey((255,255,255))
 #font
 font=pygame.font.Font(None,36)
@@ -57,7 +58,7 @@ class Player(pygame.sprite.Sprite):
         screen.blit(number_render,(x+20,y-25))
         self.rect=pygame.Rect(x,y,50,50)
         #for i in range(self.number):
-        #player_figure.create(x,y)
+        player_figure.create(x,y)
         #pygame.draw.rect(screen,RED,(x+10,y+10,5,20))
 
     def move(self):
