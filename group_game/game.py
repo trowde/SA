@@ -3,7 +3,7 @@ import random
 import math
 
 pygame.init()
-#pygame.mixer.init()
+pygame.mixer.init()
 
 
 #SCREEN_SIZE
@@ -23,7 +23,9 @@ pygame.display.set_caption('group_game')
 background=[pygame.image.load('level1.jpg'),pygame.image.load('level2.jpg'),pygame.image.load('level3.jpg')]
 music=['level1.mp3','level2.mp3']
 play_index=0
-#level1_music=pygame.music.load("level1.mp3")
+pygame.mixer.music.load("level1.mp3")
+pygame.mixer.music.set_volume(1)
+pygame.mixer.music.play(-1)
 image=pygame.image.load("character.jpg")
 image=pygame.transform.scale(image,(80,80))
 image.set_colorkey((255,255,255))
@@ -88,6 +90,7 @@ class Formula(pygame.sprite.Sprite):
     width=20
     height=20
     operator=['+','-','*','/']
+    height=100
     def __init__(self,x,y,a,b):
         super().__init__()
         self.position_X=x
@@ -95,7 +98,7 @@ class Formula(pygame.sprite.Sprite):
         self.value=a
         self.operator=b
         self.text=f"{self.operator}{self.value}"
-        self.rect=pygame.Rect(x,self.position_Y,125,50)
+        self.rect=pygame.Rect(x,self.position_Y,SCREEN_WIDTH/NUMBER_OF_FORMULA,Formula.height)
     def formula_reset(self):
         self.operator=Formula.operator[random.randint(0,3)]
         self.value=random.randint(1,10)
@@ -103,7 +106,7 @@ class Formula(pygame.sprite.Sprite):
         self.text=f"{self.operator}{self.value}"
     @staticmethod
     def formula_move(x,y,text,formula):
-        pygame.draw.rect(screen,(255,0,0),pygame.Rect(x,y,125,50),2)
+        pygame.draw.rect(screen,(255,0,0),pygame.Rect(x,y,SCREEN_WIDTH/NUMBER_OF_FORMULA,Formula.height),2)
         formula_render=font.render(text,True,(255,0,0))
         screen.blit(formula_render,(x+20,y+25))
         formula.rect=pygame.Rect(x,y,125,50)
@@ -111,11 +114,6 @@ class Formula(pygame.sprite.Sprite):
     
 
 
-
-
-class Enemy(pygame.sprite.Sprite):
-    def __init__(self):
-        super().__init__()
 
 
 
@@ -126,11 +124,11 @@ class Other(pygame.sprite.Sprite):
     @staticmethod
     def background_move(y,play_index):
             screen.blit(background[play_index],(0,y))
-            screen.blit(background[play_index],(0,-1000+y))
+            screen.blit(background[play_index],(0,-SCREEN_HEIGHT+y))
     @staticmethod
     def background_alter(y,play_index):
-         screen.blit(background[play_index-1],(0,y))
-         screen.blit(background[play_index],(0,-1000+y))
+         screen.blit(background[play_index-1],(0,-SCREEN_HEIGHT+y))
+         screen.blit(background[play_index],(0,-2*SCREEN_HEIGHT+y))
 
 
 
@@ -163,12 +161,12 @@ while running:
             for j in range(4):
                 formulas[j].formula_reset()
             break
-    if Formula.current_index>0|(play_index==0):
+    if (Formula.current_index>0&play_index>0)|(play_index==0&Formula.current_index<5):
          Other.background_move(Other.background_position,play_index)    
     else: 
          other.background_alter(Other.background_position,play_index)
     Other.background_position+=Other.background_speed
-    if Other.background_position>1000:
+    if Other.background_position>SCREEN_HEIGHT:
         Other.background_position=0
 
     
