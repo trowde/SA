@@ -29,9 +29,10 @@ music=['level1.mp3','level2.mp3']
 pygame.mixer.music.load("level1.mp3")
 pygame.mixer.music.set_volume(1)
 pygame.mixer.music.play(-1)
-image=pygame.image.load("character.jpg")
-image=pygame.transform.scale(image,(80,80))
-image.set_colorkey((255,255,255))
+image=[pygame.image.load(f"player{i}.png") for i in range(1, 5)]
+image=[pygame.transform.scale(img,(80,80)) for img in image]
+for img in image:
+    img.set_colorkey((255,255,255))
 #font
 font=pygame.font.Font(None,36)
 
@@ -62,19 +63,27 @@ class Player(pygame.sprite.Sprite):
     collider_width=10
     collider_height=10
     number_upper_limit=20
+    animation_index = 0
+    animation_speed = 10
+
     def __init__(self,x,y):
         super().__init__()
         self.position_X=x       
         self.position_Y=y
         self.rect=pygame.Rect(self.position_X-Player.collider_width/2,self.position_Y,Player.collider_width,Player.collider_height)
+        self.animation_counter = 0
     def base_figure(self):
+        self.animation_counter += 1
+        if self.animation_counter >= Player.animation_speed:
+            self.animation_counter = 0
+            Player.animation_index = (Player.animation_index + 1) % len(image)
         self.rect=pygame.Rect(self.position_X-Player.collider_width/2,self.position_Y,Player.collider_width,Player.collider_height)
         text=f"{Player.number}"
         number_render=font.render(text,True,(255,0,0))
         screen.blit(number_render,(self.position_X-10,self.position_Y-20))
-        screen.blit(image,(self.position_X-Player.width/2,self.position_Y))
+        screen.blit(image[Player.animation_index],(self.position_X-Player.width/2,self.position_Y))
     def derivative_figure(self):
-        screen.blit(image,(self.position_X-Player.width/2,self.position_Y))
+        screen.blit(image[Player.animation_index],(self.position_X-Player.width/2,self.position_Y))
     @staticmethod
     def create_derivative_figure():
         if Player.number<=Player.number_upper_limit:
