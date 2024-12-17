@@ -194,7 +194,7 @@ while running:
     if Other.play_index>=4:
         Other.background_flag=False
     if Other.background_bool&(Formula.current_index==4|Formula.current_index==9|Formula.current_index==14):
-        Other.background_alter(y,play_index)
+        Other.background_alter(Other.background_position,Other.play_index)
     else:
         Other.background_move(Other.background_position,Other.play_index)   
     Other.background_move(Other.background_position,Other.play_index)   
