@@ -14,12 +14,15 @@ SCREEN_RIGHT_BOUNDARY=SCREEN_WIDTH
 SCREEN_UP_BOUNDARY=0
 SCREEN_DOWN_BOUNDARY=SCREEN_HEIGHT
 
-
-
 NUMBER_OF_FORMULA=4
 RED=(255,0,0)
 WHITE=(255,255,255)
 BLACK=(0,0,0)
+
+formula_extra=([pygame.image.load(f'lim_q{i}.png') for i in range(1,11)]+[pygame.image.load(f'integral_q{i}.png') for i in range(1,6)]
+formula_extra=[pygame.transform.scale(formula,(SCREEN_WIDTH/NUMBER_OF_FORMULA,50)) for formula in formula_extra]
+
+
 
 #initiate
 screen=pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
@@ -92,8 +95,9 @@ class Formula(pygame.sprite.Sprite):
     height=50
     operator=['+','-','*','/']
     line_thickness=2
+    
     #-1 stands for infinity
-    formula_dict={formula1:-1,formula2:0,formula3:1,formula4:13,formula5:math.e,formula6:math.pi,formula7:math.e**math.pi,formula8:1,formula9:math.pi**math.e,formula10:1/math.sqrt(math.e),formula11:math.pi,formula12:math.pi*math.sqrt(2)/4,formula13:-1,formula14:0,formula15:-35/12+5/math.sqrt(2)+math.pi/8}
+    formula_dict={formula_extra[0]:-1,formula_extra[1]:0,formula_extra[2]:1,formula_extra[3]:13,formula_extra[4]math.e,formula_extra[5]:math.pi,formula_extra[6]math.e**math.pi,formula_extra[7]:1,formula_extra[8]:math.pi**math.e,formula_extra[9]:1/math.sqrt(math.e),formula_extra[10]:math.pi,formula_extra[11]:math.pi*math.sqrt(2)/4,formula_extra[12]:-1,formula_extra[13]:0,formula_extra[14]:-35/12+5/math.sqrt(2)+math.pi/8}
     def __init__(self,x,y,a,b):
         super().__init__()
         self.position_X=x
@@ -186,6 +190,7 @@ class heap():
 class Other(pygame.sprite.Sprite):
     background_speed=2
     background_position=0
+    limit_score=1
     norm=0 
     play_index=0
     player_figure=[]
@@ -238,6 +243,10 @@ class Other(pygame.sprite.Sprite):
                     heap.array_max_5[i]=heap.get_max()
                 heap.clear()
                 Formula.current_index+=1
+                if Formula.current_index%5==1:
+                    Other.limit_score=heap.array_max_5[4]      
+                    
+                         
                 if Other.play_index<=2
                     if Formula.current_index%5==0:
                         Other.play_index+=1
@@ -250,7 +259,7 @@ class Other(pygame.sprite.Sprite):
 
 def show_game_over():
     screen.fill(BLACK)
-    game_over_text = font.render("Game Over", True, RED)
+    game_over_text = font.render("Game Over", Tr=ue, RED)
     retry_text = font.render("Press R to Retry or Q to Quit", True, WHITE)
     
     screen.blit(game_over_text, (SCREEN_WIDTH / 2 - game_over_text.get_width() / 2, SCREEN_HEIGHT / 3))
@@ -324,3 +333,5 @@ while running:
 
     clock.tick(60) 
     pygame.display.update()
+
+   
