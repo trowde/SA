@@ -34,16 +34,27 @@ def draw_button(screen, text, x, y, w, h, color):
     screen.blit(text_surf, text_rect)
 
 # タイトル描画（影とアウトラインを追加）
+# タイトル描画（影とアウトラインを追加）
 def draw_title(screen, text):
-    # 影の描画
-    shadow_surf = title_font.render(text, True, BLACK)
-    shadow_rect = shadow_surf.get_rect(center=(WIDTH // 2 + 5, HEIGHT // 4 + 5))  # 少しずらして描画
-    screen.blit(shadow_surf, shadow_rect)
+    # タイトルの矩形サイズを計算
+    title_surf = title_font.render(text, True, YELLOW)
+    title_rect = title_surf.get_rect(center=(WIDTH // 2, HEIGHT // 4))
+    
+    # 背景用の黒い矩形を描画
+    padding = 20  # タイトル周辺の余白
+    bg_rect = pygame.Rect(
+        title_rect.left - padding, 
+        title_rect.top - padding, 
+        title_rect.width + 2 * padding, 
+        title_rect.height + 2 * padding
+    )
+    pygame.draw.rect(screen, BLACK, bg_rect)
 
-    # アウトラインを付ける（黄色）
+    # タイトルを描画（黄色のアウトライン）
     outline_surf = title_font.render(text, True, YELLOW)
-    outline_rect = outline_surf.get_rect(center=(WIDTH // 2, HEIGHT // 4))  # 画面の中央上あたり
+    outline_rect = outline_surf.get_rect(center=(WIDTH // 2, HEIGHT // 4))
     screen.blit(outline_surf, outline_rect)
+
 
 # メインループ
 # メインループ
