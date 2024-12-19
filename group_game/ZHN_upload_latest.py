@@ -219,6 +219,7 @@ class Other(pygame.sprite.Sprite):
     @staticmethod
     def collide_caculate():
         if Other.formulas[0].position_Y+Formula.height>=Other.player_figure[0].position_Y:
+            Formula.current_index+=1           
             nearest_index=0
             nearest_dis=abs((Other.player_figure[0].position_X)-(Other.formulas[0].position_X+Formula.width/2))
             for i in range(1,4):
@@ -265,7 +266,7 @@ class Other(pygame.sprite.Sprite):
             for i in range(5):
                 heap.array_max_5[i]=heap.get_max()
             heap.heap_clear()
-            Formula.current_index+=1
+
 
     
 
@@ -303,9 +304,9 @@ while running:
             pygame.draw.rect(screen,WHITE,pygame.Rect(0,Other.limit_score_position_Y,SCREEN_WIDTH,25))
             screen.blit(Other.limit_score_text,(SCREEN_WIDTH/2,Other.limit_score_position_Y))
             Other.limit_score_position_Y+=2
-            if Other.limit_score_position_Y+25>=Other.player_figure[0].position_Y:
-                if Other.limit_score>Player.number:
-                    game_over=True
+        if Other.limit_score_position_Y+25>=Other.player_figure[0].position_Y:
+            if Other.limit_score>Player.number:
+                game_over=True
                     
         Other.player_figure[0].base_figure()
         Other.player_figure[0].move()
