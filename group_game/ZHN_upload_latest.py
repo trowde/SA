@@ -116,7 +116,12 @@ class Formula(pygame.sprite.Sprite):
             formula_render=font.render(self.text,True,BLACK)
             screen.blit(formula_render,(self.position_X+20,self.position_Y+25))
         else:
-            screen.blit(self.text,(self.position_X,self.position_Y))
+            if isinstance(self.text, str):
+                formula_render = font.render(self.text, True, BLACK)
+                screen.blit(formula_render, (self.position_X, self.position_Y))
+            else:
+            # それ以外の場合（pygame.Surfaceとして渡されている場合）
+                screen.blit(self.text, (self.position_X, self.position_Y))
             
 
     def formula_reset(self):
@@ -143,7 +148,7 @@ class Formula(pygame.sprite.Sprite):
                 self.value=Formula.formula_dict[self.text]
             else:
                 self.formula_flag=0
-                if self.operato=='*'|self.operato=='/':
+                if self.operator=='*' or self.operator=='/':
                     self.value=random.uniform(0,3)
                 else:            
                     self.value=random.randint(20,100)   
@@ -218,7 +223,7 @@ class Other(pygame.sprite.Sprite):
             nearest_index=0
             nearest_dis=abs((Other.player_figure[0].position_X+Player.width/2)-(Other.formulas[0].position_X+Formula.width/2))
             for i in range(1,4):
-                temp=abs((player_figure[0].position_X+Player.width/2)-(Other.formulas[i].position_X+Formula.width/2))
+                temp=abs((Other.player_figure[0].position_X+Player.width/2)-(Other.formulas[i].position_X+Formula.width/2))
                 if temp<nearest_dis:
                     nearest_index=i
                     nearest_dis=temp
@@ -242,7 +247,11 @@ class Other(pygame.sprite.Sprite):
                     heap.heap_insert(int(heap.array_max_5[j]*Other.formulas[i].value)) 
             elif Other.formulas[i].operator=='/':
                 for j in range(4):
-                    heap.heap_insert(heap.array_max_5[j]//Other.formulas[i].value) 
+                    if Other.formulas[i].value != 0:
+                        heap.heap_insert(heap.array_max_5[j]//Other.formulas[i].value) 
+                    else:
+                        show_game_over()
+                    
                             
         heap.heapify_process()
         for i in range(5):
