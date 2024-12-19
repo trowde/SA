@@ -248,29 +248,29 @@ class Other(pygame.sprite.Sprite):
             if Formula.current_index%5==0 and Formula.current_index!=0:
                 Other.limit_score=heap.array_max_5[4]      
                 Other.limit_score_text=font.render(f"{Other.limit_score}",True,RED)
+                heap.array_max_5=[Player.number] * 5   
             if Other.play_index<=2:
                 if Formula.current_index%5==0 and Formula.current_index!=0:
                     Other.limit_score_flag=True
                     Other.play_index+=1
                     pygame.mixer.music.load(music[Other.play_index])
-                    pygame.mixer.music.play(-1)                                    
-            for j in range(4):          
-                for i in range(4):
-                    if Other.formulas[i].operator=='+':
-                        for j in range(4):
-                            heap.heap_insert(heap.array_max_5[j]+Other.formulas[i].value)                           
-                    elif Other.formulas[i].operator=='-':
-                        for j in range(4):
-                            heap.heap_insert(heap.array_max_5[j]-Other.formulas[i].value) 
-                    elif Other.formulas[i].operator=='*':
-                        for j in range(4):
-                            heap.heap_insert(int(heap.array_max_5[j]*Other.formulas[i].value)) 
-                    elif Other.formulas[i].operator=='/':
-                        for j in range(4):
-                            if Other.formulas[i].value == 0:
-                                game_over = False
-                            else:
-                                heap.heap_insert(heap.array_max_5[j]//Other.formulas[i].value) 
+                    pygame.mixer.music.play(-1)                                            
+            for i in range(4):
+                if Other.formulas[i].operator=='+':
+                     for j in range(4):
+                         heap.heap_insert(heap.array_max_5[j]+Other.formulas[i].value)                           
+                elif Other.formulas[i].operator=='-':
+                    for j in range(4):
+                         heap.heap_insert(heap.array_max_5[j]-Other.formulas[i].value) 
+                elif Other.formulas[i].operator=='*':
+                     for j in range(4):
+                         heap.heap_insert(int(heap.array_max_5[j]*Other.formulas[i].value)) 
+                 elif Other.formulas[i].operator=='/':
+                    for j in range(4):
+                        if Other.formulas[i].value == 0:
+                            heap.heap_insert(0)                      
+                        else:
+                            heap.heap_insert(heap.array_max_5[j]//Other.formulas[i].value) 
             for i in range(4):
                 Other.formulas[i].formula_reset()                                  
             heap.heapify_process()
