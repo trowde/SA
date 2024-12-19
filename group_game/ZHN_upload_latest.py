@@ -91,8 +91,8 @@ class Formula(pygame.sprite.Sprite):
     line_thickness=2
     
     #-1 stands for infinity
-    formula_dict={formula_extra[0]:-1,formula_extra[1]:0,formula_extra[2]:1,formula_extra[3]:13,formula_extra[4]:math.e,
-    formula_extra[5]:math.pi,formula_extra[6]:math.e**math.pi,formula_extra[7]:1,formula_extra[8]:math.pi**math.e,formula_extra[9]:1/math.sqrt(math.e),
+    formula_dict={formula_extra[0]:-1,formula_extra[1]:0,formula_extra[2]:1,formula_extra[3]:-1,formula_extra[4]:13,
+    formula_extra[5]:math.e,formula_extra[6]:math.pi,formula_extra[7]:math.e**math.pi,formula_extra[8]:1,formula_extra[9]:math.pi**math.e,
     formula_extra[10]:math.pi,formula_extra[11]:math.pi*math.sqrt(2)/4,formula_extra[12]:-1,formula_extra[13]:0,formula_extra[14]:-35/12+5/math.sqrt(2)+math.pi/8,
     formula_extra[15]:6,formula_extra[16]:8,formula_extra[17]:3.75,formula_extra[18]:2.5,formula_extra[19]:1.625,formula_extra[20]:2,formula_extra[21]:1,formula_extra[22]:0.5,
     formula_extra[23]:2,formula_extra[24]:1,formula_extra[25]:5,formula_extra[26]:1,formula_extra[27]:-1,formula_extra[28]:2,formula_extra[29]:5,formula_extra[30]:10,
