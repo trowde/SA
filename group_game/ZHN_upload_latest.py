@@ -251,7 +251,7 @@ class Other(pygame.sprite.Sprite):
         Formula.current_index+=1
         if Formula.current_index%5==0:
             Other.limit_score=heap.array_max_5[4]      
-            Other.limit_score_text=font.render(Other.limit_score_text,True,(255,0,0))
+            Other.limit_score_text=font.render(f"{Other.limit_score}",True,RED)
                     
         if Other.play_index<=2:
             if Formula.current_index%5==0:
