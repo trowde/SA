@@ -21,7 +21,7 @@ BLACK=(0,0,0)
 
 formula_extra=([pygame.image.load(f'math_problem/lim/lim_q{i}.png') for i in range(1,11)]+[pygame.image.load(f'math_problem/int/integral_q{i}.png') for i in range(1,6)]
 +[pygame.image.load(f'math_problem/sum/sum_q{i}.png') for i in range(1,14)]+[pygame.image.load(f'math_problem/det/det_q{i}.png') for i in range(1,8)])
-formula_extra=[pygame.transform.scale(formula,(SCREEN_WIDTH/NUMBER_OF_FORMULA,50)) for formula in formula_extra]
+formula_extra=[pygame.transform.scale(formula,(SCREEN_WIDTH/NUMBER_OF_FORMULA,200)) for formula in formula_extra]
 
 
 
@@ -89,7 +89,7 @@ class Formula(pygame.sprite.Sprite):
     number=4
     speed=2
     width=SCREEN_WIDTH/NUMBER_OF_FORMULA
-    height=50
+    height=200
     operator=['+','-','*','/']
     line_thickness=2
     
@@ -114,7 +114,7 @@ class Formula(pygame.sprite.Sprite):
             pygame.draw.rect(screen, WHITE, pygame.Rect(self.position_X, self.position_Y, SCREEN_WIDTH / NUMBER_OF_FORMULA, Formula.height))
             pygame.draw.rect(screen, BLACK, pygame.Rect(self.position_X, self.position_Y, SCREEN_WIDTH / NUMBER_OF_FORMULA, Formula.height), Formula.line_thickness)
             formula_render = font.render(self.text, True, BLACK)
-            screen.blit(formula_render, (self.position_X + 20, self.position_Y + 25))
+            screen.blit(formula_render, (self.position_X + 20, self.position_Y + 95))
         else:
             screen.blit(self.text, (self.position_X, self.position_Y))
 
