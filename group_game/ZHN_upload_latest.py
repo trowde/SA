@@ -348,6 +348,7 @@ while running:
                       Formula(i * SCREEN_WIDTH / NUMBER_OF_FORMULA, -100, random.randint(1, 10), Formula.operator[random.randint(0, 3)])
                       for i in range(4)
                   ]
+                  pygame.mixer.music.load(music[0])
                   pygame.mixer.music.play(-1)  
                   game_over = False
               elif event.key == pygame.K_q:  # quit
