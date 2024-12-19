@@ -223,9 +223,9 @@ class Other(pygame.sprite.Sprite):
     def collide_caculate():
         if Other.formulas[0].position_Y+Formula.height>=Other.player_figure[0].position_Y:
             nearest_index=0
-            nearest_dis=abs((Other.player_figure[0].position_X+Player.width/2)-(Other.formulas[0].position_X+Formula.width/2))
+            nearest_dis=abs((Other.player_figure[0].position_X)-(Other.formulas[0].position_X+Formula.width/2))
             for i in range(1,4):
-                temp=abs((Other.player_figure[0].position_X+Player.width/2)-(Other.formulas[i].position_X+Formula.width/2))
+                temp=abs((Other.player_figure[0].position_X)-(Other.formulas[i].position_X+Formula.width/2))
                 if temp<nearest_dis:
                     nearest_index=i
                     nearest_dis=temp
@@ -241,7 +241,7 @@ class Other(pygame.sprite.Sprite):
                 Other.limit_score=heap.array_max_5[4]      
                 Other.limit_score_text=font.render(f"{Other.limit_score}",True,RED)
             if Other.play_index<=2:
-                if Formula.current_index%5==0:
+                if Formula.current_index%5==0 and Formula.current_index!=0:
                     Other.play_index+=1
                     pygame.mixer.music.load(music[Other.play_index])
                     pygame.mixer.music.play(-1)                                    
