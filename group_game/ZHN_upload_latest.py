@@ -123,12 +123,12 @@ class Formula(pygame.sprite.Sprite):
     def formula_reset(self):
         self.operator=Formula.operator[random.randint(0,3)]
         if Other.play_index==0:
-            self.formula_flag=1
+            self.formula_flag=0
             if self.operator=='*'or self.operator=='/':
                    self.value=random.uniform(0,3)
             else:            
                 self.value=random.randint(1,10)
-                self.text=f"{self.operator}{self.value}"        
+            self.text=f"{self.operator}{self.value}"        
         elif Other.play_index==1:
             self.formula_flag=0        
             if self.operator=='*'or self.operator=='/':
@@ -244,7 +244,10 @@ class Other(pygame.sprite.Sprite):
                     heap.heap_insert(int(heap.array_max_5[j]*Other.formulas[i].value)) 
             elif Other.formulas[i].operator=='/':
                 for j in range(4):
-                    heap.heap_insert(heap.array_max_5[j]//Other.formulas[i].value) 
+                    if Other.formulas[i].value == 0:
+                        game_over = False
+                    else:
+                        heap.heap_insert(heap.array_max_5[j]//Other.formulas[i].value) 
                             
         heap.heapify_process()
         for i in range(5):
