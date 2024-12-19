@@ -68,7 +68,7 @@ class Player(pygame.sprite.Sprite):
             while len(Other.player_figure)<Player.number:
                 Other.player_figure.append(Player(Other.player_figure[0].position_X+random.uniform(-25,25),Other.player_figure[0].position_Y+random.uniform(0,50)))
         else:
-            while len(Other.player_figure)<Player.number:
+            while len(Other.player_figure)<Player.number_upper_limit:
                 Other.player_figure.append(Player(Other.player_figure[0].position_X+random.uniform(-25,25),Other.player_figure[0].position_Y+random.uniform(0,50)))
     def move(self):
         keys = pygame.key.get_pressed()
@@ -198,7 +198,8 @@ class Other(pygame.sprite.Sprite):
     background_speed=2
     background_position=0
     limit_score=1
-    limit_score_position_Y=-500
+    limit_score_position_Y=0
+    limit_score_flag=True
     limit_score_text=font.render(f"{limit_score}",True,RED)
     norm=0 
     play_index=0
@@ -240,6 +241,7 @@ class Other(pygame.sprite.Sprite):
                 Other.limit_score_text=font.render(f"{Other.limit_score}",True,RED)
             if Other.play_index<=2:
                 if Formula.current_index%5==0 and Formula.current_index!=0:
+                    Other.limit_score_flag=True
                     Other.play_index+=1
                     pygame.mixer.music.load(music[Other.play_index])
                     pygame.mixer.music.play(-1)                                    
@@ -300,13 +302,14 @@ while running:
         if Other.background_position>SCREEN_HEIGHT:
             Other.background_position=0
         
-        if Formula.current_index%5==0 and Formula.current_index!=0:
+        if Other.limit_score_flag and Formula.current_index%5==0 and Formula.current_index!=0:
             pygame.draw.rect(screen,WHITE,pygame.Rect(0,Other.limit_score_position_Y,SCREEN_WIDTH,25))
             screen.blit(Other.limit_score_text,(SCREEN_WIDTH/2,Other.limit_score_position_Y))
             Other.limit_score_position_Y+=2
         if Other.limit_score_position_Y+25>=Other.player_figure[0].position_Y:
             if Other.limit_score>Player.number:
                 game_over=True
+                Other.limit_score_flag=False
                     
         Other.player_figure[0].base_figure()
         Other.player_figure[0].move()
