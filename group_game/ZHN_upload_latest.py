@@ -95,7 +95,10 @@ class Formula(pygame.sprite.Sprite):
     #-1 stands for infinity
     formula_dict={formula_extra[0]:-1,formula_extra[1]:0,formula_extra[2]:1,formula_extra[3]:13,formula_extra[4]:math.e,
     formula_extra[5]:math.pi,formula_extra[6]:math.e**math.pi,formula_extra[7]:1,formula_extra[8]:math.pi**math.e,formula_extra[9]:1/math.sqrt(math.e),
-    formula_extra[10]:math.pi,formula_extra[11]:math.pi*math.sqrt(2)/4,formula_extra[12]:-1,formula_extra[13]:0,formula_extra[14]:-35/12+5/math.sqrt(2)+math.pi/8}
+    formula_extra[10]:math.pi,formula_extra[11]:math.pi*math.sqrt(2)/4,formula_extra[12]:-1,formula_extra[13]:0,formula_extra[14]:-35/12+5/math.sqrt(2)+math.pi/8,
+    formula_extra[15]:6,formula_extra[16]:8,formula_extra[17]:3.75,formula_extra[18]:2.5,formula_extra[19]:1.625,formula_extra[20]:2,formula_extra[21]:1,formula_extra[22]:0.5,
+    formula_extra[23]:2,formula_extra[24]:1,formula_extra[25]:5,formula_extra[26]:1,formula_extra[27]:-1,formula_extra[28]:2,formula_extra[29]:5,formula_extra[30]:10,
+    formula_extra[31]:1,formula_extra[32]:8,formula_extra[33]:12,formula_extra[34]:0}
     def __init__(self,x,y,a,b):
         super().__init__()
         self.position_X=x
@@ -191,7 +194,7 @@ class Other(pygame.sprite.Sprite):
     background_position=0
     limit_score=1
     limit_score_position_Y=-200
-    limit_score_text=font.render('limit_score',True,RED)
+    limit_score_text=font.render(f"{limit_score}",True,RED)
     norm=0 
     play_index=0
     player_figure=[]
@@ -247,7 +250,7 @@ class Other(pygame.sprite.Sprite):
         Formula.current_index+=1
         if Formula.current_index%5==0:
             Other.limit_score=heap.array_max_5[4]      
-            Other.limit_score_text=font.render(Other.limit_score,True,(255,0,0))
+            Other.limit_score_text=font.render(Other.limit_score_text,True,(255,0,0))
                     
         if Other.play_index<=2:
             if Formula.current_index%5==0:
