@@ -19,7 +19,7 @@ RED=(255,0,0)
 WHITE=(255,255,255)
 BLACK=(0,0,0)
 
-formula_extra=([pygame.image.load(f'math_problem/math_problemlim_q{i}.png') for i in range(1,11)]+[pygame.image.load(f'math_problem/integral_q{i}.png') for i in range(1,6)]
+formula_extra=([pygame.image.load(f'math_problem/lim/lim_q{i}.png') for i in range(1,11)]+[pygame.image.load(f'math_problem/int/integral_q{i}.png') for i in range(1,6)])
 formula_extra=[pygame.transform.scale(formula,(SCREEN_WIDTH/NUMBER_OF_FORMULA,50)) for formula in formula_extra]
 
 
@@ -119,14 +119,14 @@ class Formula(pygame.sprite.Sprite):
         self.operator=Formula.operator[random.randint(0,3)]
         if Other.play_index==0:
             self.formula_flag=1
-            if self.operato=='*'|self.operato=='/':
+            if self.operator=='*'or self.operator=='/':
                    self.value=random.uniform(0,3)
             else:            
                 self.value=random.randint(1,10)
                 self.text=f"{self.operator}{self.value}"        
         elif Other.play_index==1:
             self.formula_flag=0        
-            if self.operato=='*'|self.operato=='/':
+            if self.operator=='*'or self.operator=='/':
                    self.value=random.uniform(0,2)
             else:            
                 self.value=random.randint(20,100)   
@@ -191,11 +191,11 @@ class Other(pygame.sprite.Sprite):
     background_position=0
     limit_score=1
     limit_score_position_Y=-200
-    limit_score_text=font.render(limit_score,True,RED)
+    limit_score_text=font.render('limit_score',True,RED)
     norm=0 
     play_index=0
     player_figure=[]
-    music.flag=False
+    music_flag=False
     player_figure.append(Player(SCREEN_WIDTH/2,SCREEN_HEIGHT-200))
     formulas=[Formula(0,-100,2,Formula.operator[0]),Formula(SCREEN_WIDTH/NUMBER_OF_FORMULA,-100,7,Formula.operator[0]),Formula(2*SCREEN_WIDTH/NUMBER_OF_FORMULA,-100,1,Formula.operator[0]),Formula(3*SCREEN_WIDTH/NUMBER_OF_FORMULA,-100,8,Formula.operator[0])]
 
@@ -243,7 +243,7 @@ class Other(pygame.sprite.Sprite):
         heap.heapify_process()
         for i in range(5):
             heap.array_max_5[i]=heap.get_max()
-        heap.clear()
+        heap.heap_clear()
         Formula.current_index+=1
         if Formula.current_index%5==0:
             Other.limit_score=heap.array_max_5[4]      
@@ -280,7 +280,7 @@ while running:
         for i in Other.player_figure:
             i.position_X+=(i.position_X-Other.player_figure[0].position_X)   
             i.position_Y+=(i.position_Y-Other.player_figure[0].position_Y)           
-        formual_num_text=font.render(f'Score:{Formula.current_inde}', True, WHITE)
+        formual_num_text=font.render(f'Score:{Formula.current_index}', True, WHITE)
         screen.blit(formual_num_text, (20,20))
         Player.create_derivative_figure()   
         Other.background_move(Other.background_position,Other.play_index)   
@@ -288,7 +288,7 @@ while running:
         if Other.background_position>SCREEN_HEIGHT:
             Other.background_position=0
         
-        if Formula.current_inde%5==0:
+        if Formula.current_index%5==0:
             pygame.draw.rect(screen,WHITE,pygame.Rect(0,Other.limit_score_position_Y,SCREEN_WIDTH,25))
             screen.blit(Other.limit_score_text,(SCREEN_WIDTH/2,Other.limit_score_position_Y))
             Other.limit_score_position_Y+=2
