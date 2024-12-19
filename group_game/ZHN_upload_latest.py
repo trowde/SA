@@ -267,7 +267,7 @@ class Other(pygame.sprite.Sprite):
                 elif Other.formulas[i].operator=='*':
                      for j in range(4):
                          heap.heap_insert(int(heap.array_max_5[j]*Other.formulas[i].value)) 
-                 elif Other.formulas[i].operator=='/':
+                elif Other.formulas[i].operator=='/':
                     for j in range(4):
                         if Other.formulas[i].value == 0:
                             heap.heap_insert(0)                      
@@ -328,7 +328,7 @@ while running:
         for i in range(1,len(Other.player_figure)):
             screen.blit(image[Player.animation_index],(Other.player_figure[i].position_X,Other.player_figure[i].position_Y))
         formual_num_text=font.render(f'Score:{Formula.current_index}', True, RED)  
-        pygame.draw.rect(screen, WHITE, pygame.Rect(0, 0, 100,80））           
+        pygame.draw.rect(screen, WHITE, pygame.Rect(0, 0, 100,80))           
         pygame.draw.rect(screen, BLACK, pygame.Rect(0, 0, 100, 80), 2)    
         screen.blit(formual_num_text, (45,40))
 #        if Player.number<=20:
