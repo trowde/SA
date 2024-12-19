@@ -289,8 +289,9 @@ while running:
 
     if game_over == False:
         Other.collide_caculate()           
-        Other.player_figure[0].position_X=max(0,min(Other.player_figure[0].position_X,SCREEN_WIDTH))
-        Other.player_figure[0].position_Y=max(SCREEN_HEIGHT/2,min(Other.player_figure[0].position_Y,SCREEN_HEIGHT-Player.height*2))
+        for i in range(len(player_figure)):
+            Other.player_figure[i].position_X=max(0,min(Other.player_figure[i].position_X,SCREEN_WIDTH))
+            Other.player_figure[i].position_Y=max(SCREEN_HEIGHT/2,min(Other.player_figure[i].position_Y,SCREEN_HEIGHT-Player.height*2))
      #   for i in Other.player_figure:
           #  i.position_X+=(Other.player_figure[0].position_X-i.position_X)   
        #     i.position_Y+=(Other.player_figure[0].position_Y-i.position_Y)           
