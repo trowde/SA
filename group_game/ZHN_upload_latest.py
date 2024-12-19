@@ -36,7 +36,7 @@ pygame.mixer.music.load(music[0])
 pygame.mixer.music.set_volume(1)
 pygame.mixer.music.play(-1)
 image=pygame.image.load("character.jpg")
-image=pygame.transform.scale(image,(80,80))
+image=pygame.transform.scale(image,(50,50))
 image.set_colorkey((255,255,255))
 #font
 font=pygame.font.Font(None,36)
@@ -58,7 +58,7 @@ class Player(pygame.sprite.Sprite):
     def base_figure(self):
         text=f"{Player.number}"
         number_render=font.render(text,True,RED)
-        screen.blit(number_render,(self.position_X-20,self.position_Y-20))
+        screen.blit(number_render,(self.position_X-25,self.position_Y-25))
         screen.blit(image,(self.position_X-Player.width/2,self.position_Y))
     @staticmethod
     def create_derivative_figure():
