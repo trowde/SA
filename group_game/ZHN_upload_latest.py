@@ -93,7 +93,9 @@ class Formula(pygame.sprite.Sprite):
     line_thickness=2
     
     #-1 stands for infinity
-    formula_dict={formula_extra[0]:-1,formula_extra[1]:0,formula_extra[2]:1,formula_extra[3]:13,formula_extra[4]math.e,formula_extra[5]:math.pi,formula_extra[6]math.e**math.pi,formula_extra[7]:1,formula_extra[8]:math.pi**math.e,formula_extra[9]:1/math.sqrt(math.e),formula_extra[10]:math.pi,formula_extra[11]:math.pi*math.sqrt(2)/4,formula_extra[12]:-1,formula_extra[13]:0,formula_extra[14]:-35/12+5/math.sqrt(2)+math.pi/8}
+    formula_dict={formula_extra[0]:-1,formula_extra[1]:0,formula_extra[2]:1,formula_extra[3]:13,formula_extra[4]:math.e,
+    formula_extra[5]:math.pi,formula_extra[6]:math.e**math.pi,formula_extra[7]:1,formula_extra[8]:math.pi**math.e,formula_extra[9]:1/math.sqrt(math.e),
+    formula_extra[10]:math.pi,formula_extra[11]:math.pi*math.sqrt(2)/4,formula_extra[12]:-1,formula_extra[13]:0,formula_extra[14]:-35/12+5/math.sqrt(2)+math.pi/8}
     def __init__(self,x,y,a,b):
         super().__init__()
         self.position_X=x
@@ -138,9 +140,9 @@ class Formula(pygame.sprite.Sprite):
             else:
                 self.formula_flag=1
                 if self.operato=='*'|self.operato=='/':
-                self.value=random.uniform(0,3)
+                    self.value=random.uniform(0,3)
                 else:            
-                self.value=random.randint(20,100)   
+                    self.value=random.randint(20,100)   
                       
          self.position_Y=-50
 
@@ -244,9 +246,9 @@ class Other(pygame.sprite.Sprite):
         Formula.current_index+=1
         if Formula.current_index%5==0:
             Other.limit_score=heap.array_max_5[4]      
-            Other.limit_score_text=font.render(limit_score,True,(255,0,0))
+            Other.limit_score_text=font.render(Other.limit_score,True,(255,0,0))
                     
-        if Other.play_index<=2
+        if Other.play_index<=2:
             if Formula.current_index%5==0:
                 Other.play_index+=1
                 pygame.mixer.music.load(music[Other.play_index])
@@ -258,7 +260,7 @@ class Other(pygame.sprite.Sprite):
 
 def show_game_over():
     screen.fill(BLACK)
-    game_over_text = font.render("Game Over", Tr=ue, RED)
+    game_over_text = font.render("Game Over", True, RED)
     retry_text = font.render("Press R to Retry or Q to Quit", True, WHITE)
     
     screen.blit(game_over_text, (SCREEN_WIDTH / 2 - game_over_text.get_width() / 2, SCREEN_HEIGHT / 3))
@@ -287,8 +289,8 @@ while running:
             Other.background_position=0
         
         if Formula.current_inde%5==0:
-            pygame.draw.rect(screen,WHITE,pygame.Rect(0,limit_score_position_Y,SCREEN_WIDTH,25))
-            screen.blit(Other.limit_score_text,(SCREEN_WIDTH/2,limit_score_position_Y))
+            pygame.draw.rect(screen,WHITE,pygame.Rect(0,Other.limit_score_position_Y,SCREEN_WIDTH,25))
+            screen.blit(Other.limit_score_text,(SCREEN_WIDTH/2,Other.limit_score_position_Y))
             Other.limit_score_position_Y+=2
             if Other.limit_score_position_Y+25>=Other.player_figure[0].position_Y:
                 if Other.limit_score>Player.number:
@@ -342,5 +344,3 @@ while running:
 
     clock.tick(60) 
     pygame.display.update()
-
-   
