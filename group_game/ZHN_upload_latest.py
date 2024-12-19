@@ -40,10 +40,6 @@ image.set_colorkey((255,255,255))
 #font
 font=pygame.font.Font(None,36)
 
-
-#pygame.mixer.music.load(music[play_index])
-#pygame.mixer.music.play(-1)
-
 #player
 class Player(pygame.sprite.Sprite):
     number=1
@@ -132,7 +128,8 @@ class Formula(pygame.sprite.Sprite):
                    self.value=random.uniform(0,2)
             else:            
                 self.value=random.randint(20,100)   
-            self.text=f"{self.operator}{self.value}"                     else:
+            self.text=f"{self.operator}{self.value}"                     
+        else:
             flag=random.randint(0,1)            
             if flag:
                 self.formula_flag=0
@@ -140,9 +137,9 @@ class Formula(pygame.sprite.Sprite):
                 self.value=Formula.formula_dict[self.text]
             else:
                 self.formula_flag=1
-            if self.operato=='*'|self.operato=='/':
+                if self.operato=='*'|self.operato=='/':
                 self.value=random.uniform(0,3)
-            else:            
+                else:            
                 self.value=random.randint(20,100)   
                       
          self.position_Y=-50
@@ -191,11 +188,13 @@ class Other(pygame.sprite.Sprite):
     background_speed=2
     background_position=0
     limit_score=1
+    limit_score_position_Y=-200
+    limit_score_text=font.render(limit_score,True,RED)
     norm=0 
     play_index=0
     player_figure=[]
     music.flag=False
-    player_figure.append(Player(SCREEN_WIDTH/2,SCREEN_HEIGHT-200))
+    player_figure.append(Player(SCREEN_WIDTH/2,SCREEN_HEIGHT-200))RED
     formulas=[Formula(0,-100,2,Formula.operator[0]),Formula(SCREEN_WIDTH/NUMBER_OF_FORMULA,-100,7,Formula.operator[0]),Formula(2*SCREEN_WIDTH/NUMBER_OF_FORMULA,-100,1,Formula.operator[0]),Formula(3*SCREEN_WIDTH/NUMBER_OF_FORMULA,-100,8,Formula.operator[0])]
 
 
@@ -209,53 +208,53 @@ class Other(pygame.sprite.Sprite):
             screen.blit(background[3],(0,-SCREEN_HEIGHT+y))
     @staticmethod
     def collide_caculate():
-                if Other.formulas[0].position_Y+Formula.height==Other.player_figure[0].position_Y:
-                    nearest_index=0
-                    nearest_dis=abs((player_figure[0].position_X+Player.width/2)-(Other.formulas[0].position_X+Formula.width/2))
-                    for i in range(1,4):
-                            if temp=abs((player_figure[0].position_X+Player.width/2)-(Other.formulas[i].position_X+Formula.width/2))<nearest_dis:
-                                nearest_index=i
-                                nearest_dis=temp
-                     if Other.formulas[nearest_index].operator=='+':
-                        Player.number=Player.number+Other.formulas[nearest_index].value
-                     elif Other.formulas[nearest_index].operator=='-':
-                        Player.number=Player.number-Other.formulas[nearest_index].value
-                    elif Other.formulas[nearest_index].operator=='*':
-                        Player.number=int(Player.number*Other.formulas[nearest_index].value)
-                    elif Other.formulas[nearest_index].operator=='/':
-                        Player.number=Player.number//Other.formulas[nearest_index].value
-                for i in range(4):
-                    if Other.formulas[i].operator=='+':
-                        for j in range(4):
-                            heap.heap_insert(heap.array_max_5[j]+Other.formulas[i].value)                           
-                    elif Other.formulas[i].operator=='-':
-                        for j in range(4):
-                            heap.heap_insert(heap.array_max_5[j]-Other.formulas[i].value) 
-                    elif Other.formulas[i].operator=='*':
-                       for j in range(4):
-                            heap.heap_insert(int(heap.array_max_5[j]*Other.formulas[i].value)) 
-                    elif Other.formulas[i].operator=='/':
-                       for j in range(4):
-                            heap.heap_insert(heap.array_max_5[j]//Other.formulas[i].value) 
-                                  
-                heap.heapify_process()
-                for i in range(5):
-                    heap.array_max_5[i]=heap.get_max()
-                heap.clear()
-                Formula.current_index+=1
-                if Formula.current_index%5==1:
-                    Other.limit_score=heap.array_max_5[4]      
-                    
-                         
-                if Other.play_index<=2
-                    if Formula.current_index%5==0:
-                        Other.play_index+=1
-                        pygame.mixer.music.load(music[Other.play_index])
-                        pygame.mixer.music.play(-1)
+        if Other.formulas[0].position_Y+Formula.height==Other.player_figure[0].position_Y:
+            nearest_index=0
+            nearest_dis=abs((player_figure[0].position_X+Player.width/2)-(Other.formulas[0].position_X+Formula.width/2))
+            for i in range(1,4):
+                    if temp=abs((player_figure[0].position_X+Player.width/2)-(Other.formulas[i].position_X+Formula.width/2))<nearest_dis:
+                        nearest_index=i
+                        nearest_dis=temp
+                if Other.formulas[nearest_index].operator=='+':
+                Player.number=Player.number+Other.formulas[nearest_index].value
+                elif Other.formulas[nearest_index].operator=='-':
+                Player.number=Player.number-Other.formulas[nearest_index].value
+            elif Other.formulas[nearest_index].operator=='*':
+                Player.number=int(Player.number*Other.formulas[nearest_index].value)
+            elif Other.formulas[nearest_index].operator=='/':
+                Player.number=Player.number//Other.formulas[nearest_index].value
+        for i in range(4):
+            if Other.formulas[i].operator=='+':
                 for j in range(4):
-                    Other.formulas[j].formula_reset()
-                break
-            
+                    heap.heap_insert(heap.array_max_5[j]+Other.formulas[i].value)                           
+            elif Other.formulas[i].operator=='-':
+                for j in range(4):
+                    heap.heap_insert(heap.array_max_5[j]-Other.formulas[i].value) 
+            elif Other.formulas[i].operator=='*':
+                for j in range(4):
+                    heap.heap_insert(int(heap.array_max_5[j]*Other.formulas[i].value)) 
+            elif Other.formulas[i].operator=='/':
+                for j in range(4):
+                    heap.heap_insert(heap.array_max_5[j]//Other.formulas[i].value) 
+                            
+        heap.heapify_process()
+        for i in range(5):
+            heap.array_max_5[i]=heap.get_max()
+        heap.clear()
+        Formula.current_index+=1
+        if Formula.current_index%5==0:
+            Other.limit_score=heap.array_max_5[4]      
+            Other.limit_score_text=font.render(limit_score,True,(255,0,0))
+                    
+        if Other.play_index<=2
+            if Formula.current_index%5==0:
+                Other.play_index+=1
+                pygame.mixer.music.load(music[Other.play_index])
+                pygame.mixer.music.play(-1)
+        for j in range(4):
+            Other.formulas[j].formula_reset()
+        break
+    
 
 def show_game_over():
     screen.fill(BLACK)
@@ -273,42 +272,52 @@ game_over = False
 while running:
 
     if game_over == False:
-      Other.collide_caculate()
-      formual_num_text=font.render(f'Score:{Formula.current_inde}', True, WHITE)
-      screen.blit(formual_num_text, (20,20))
-      Player.create_derivative_figure()
-      
-      Other.background_move(Other.background_position,Other.play_index)   
-      if 
-      Other.background_position+=Other.background_speed
-      if Other.background_position>SCREEN_HEIGHT:
-          Other.background_position=0
-      
-      Other.player_figure[0].base_figure()
-      Other.player_figure[0].move()
-      if Player.number<=20:
-          for i in range(1,Player.number):
-              Other.player_figure[i].derivative_figure()
-              Other.player_figure[i].move()
-      else:
-          for i in range(1,Player.number_upper_limit):
-              Other.player_figure[i].derivative_figure()
-              Other.player_figure[i].move()
-
-      for i in range(NUMBER_OF_FORMULA):
-          Other.formulas[i].formula_move()
-          Other.formulas[i].position_Y+=Formula.speed
-
-
-      if Player.number<=0:
-          # running=False
-          game_over = True
-          pygame.mixer.music.stop()  
+        Other.collide_caculate()           
+        Other.player_figure[0].position_X=max(0,min(Other.player_figure[0].position_X,SCREEN_WIDTH))
+        Other.player_figure[0].position_Y=max(SCREEN_HEIGHT/2,min(Other.player_figure[0].position_Y,SCREEN_HEIGHT-Player.height*2))
+        for i in Other.player_figure:
+            i.position_X+=(i.position_X-Other.player_figure[0].position_X)   
+            i.position_Y+=(i.position_Y-Other.player_figure[0].position_Y)           
+        formual_num_text=font.render(f'Score:{Formula.current_inde}', True, WHITE)
+        screen.blit(formual_num_text, (20,20))
+        Player.create_derivative_figure()   
+        Other.background_move(Other.background_position,Other.play_index)   
+        Other.background_position+=Other.background_speed
+        if Other.background_position>SCREEN_HEIGHT:
+            Other.background_position=0
         
+        if Formula.current_inde%5==0:
+            pygame.draw.rect(screen,WHITE,pygame.Rect(0,limit_score_position_Y,SCREEN_WIDTH,25))
+            screen.blit(Other.limit_score_text,(SCREEN_WIDTH/2,limit_score_position_Y))
+            Other.limit_score_position_Y+=2
+            if Other.limit_score_position_Y+25>=Other.player_figure[0].position_Y:
+                if Other.limit_score>Player.number:
+                    game_over=True
+        Other.player_figure[0].base_figure()
+        Other.player_figure[0].move()
+        if Player.number<=20:
+            for i in range(1,Player.number):
+                Other.player_figure[i].derivative_figure()
+                Other.player_figure[i].move()
+        else:
+            for i in range(1,Player.number_upper_limit):
+                Other.player_figure[i].derivative_figure()
+                Other.player_figure[i].move()
 
-      for event in pygame.event.get():
-          if event.type ==pygame.QUIT:
-              running=False
+        for i in range(NUMBER_OF_FORMULA):
+            Other.formulas[i].formula_move()
+            Other.formulas[i].position_Y+=Formula.speed
+
+
+        if Player.number<=0:
+            # running=False
+            game_over = True
+            pygame.mixer.music.stop()  
+            
+
+        for event in pygame.event.get():
+            if event.type ==pygame.QUIT:
+                running=False
     else:
       show_game_over()
       for event in pygame.event.get():
