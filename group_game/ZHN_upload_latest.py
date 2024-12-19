@@ -232,6 +232,16 @@ class Other(pygame.sprite.Sprite):
                 Player.number=int(Player.number*Other.formulas[nearest_index].value)
             elif Other.formulas[nearest_index].operator=='/':
                 Player.number=Player.number//Other.formulas[nearest_index].value
+            if Formula.current_index%5==0:
+                Other.limit_score=heap.array_max_5[4]      
+                Other.limit_score_text=font.render(f"{Other.limit_score}",True,RED)                        
+            if Other.play_index<=2:
+                if Formula.current_index%5==0:
+                    Other.play_index+=1
+                    pygame.mixer.music.load(music[Other.play_index])
+                    pygame.mixer.music.play(-1)
+        for j in range(4):
+            Other.formulas[j].formula_reset()            
         for i in range(4):
             if Other.formulas[i].operator=='+':
                 for j in range(4):
@@ -254,17 +264,7 @@ class Other(pygame.sprite.Sprite):
             heap.array_max_5[i]=heap.get_max()
         heap.heap_clear()
         Formula.current_index+=1
-        if Formula.current_index%5==0:
-            Other.limit_score=heap.array_max_5[4]      
-            Other.limit_score_text=font.render(f"{Other.limit_score}",True,RED)
-                    
-        if Other.play_index<=2:
-            if Formula.current_index%5==0:
-                Other.play_index+=1
-                pygame.mixer.music.load(music[Other.play_index])
-                pygame.mixer.music.play(-1)
-        for j in range(4):
-            Other.formulas[j].formula_reset()
+
     
 
 def show_game_over():
