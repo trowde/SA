@@ -237,6 +237,8 @@ class Other(pygame.sprite.Sprite):
                 if temp<nearest_dis:
                     nearest_index=i
                     nearest_dis=temp
+           # if Other.formulas[nearest_index].value==-1：
+            
             if Other.formulas[nearest_index].operator=='+':
                 Player.number=Player.number+Other.formulas[nearest_index].value
             elif Other.formulas[nearest_index].operator=='-':
@@ -304,8 +306,7 @@ while running:
      #   for i in Other.player_figure:
           #  i.position_X+=(Other.player_figure[0].position_X-i.position_X)   
        #     i.position_Y+=(Other.player_figure[0].position_Y-i.position_Y)           
-        formual_num_text=font.render(f'Score:{Formula.current_index}', True, WHITE)
-        screen.blit(formual_num_text, (20,20))
+        
         Player.create_derivative_figure()   
         Other.background_move(Other.background_position,Other.play_index)   
         Other.background_position+=Other.background_speed
@@ -326,7 +327,10 @@ while running:
         Other.player_figure[0].base_figure()
         for i in range(1,len(Other.player_figure)):
             screen.blit(image[Player.animation_index],(Other.player_figure[i].position_X,Other.player_figure[i].position_Y))
-
+        formual_num_text=font.render(f'Score:{Formula.current_index}', True, RED)  
+        pygame.draw.rect(screen, WHITE, pygame.Rect(0, 0, 100,80））           
+        pygame.draw.rect(screen, BLACK, pygame.Rect(0, 0, 100, 80), 2)    
+        screen.blit(formual_num_text, (45,40))
 #        if Player.number<=20:
 #            for i in range(1,Player.number):
  #               Other.player_figure[i].move()
