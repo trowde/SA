@@ -110,7 +110,7 @@ class Formula(pygame.sprite.Sprite):
         self.text=f"{self.operator}{self.value}"
         self.rect=pygame.Rect(self.position_X,self.position_Y,SCREEN_WIDTH/Formula.number,Formula.height)
     def formula_move(self):
-        if self.formula_flag:
+        if self.formula_flag==0:
             pygame.draw.rect(screen,WHITE,pygame.Rect(self.position_X,self.position_Y,SCREEN_WIDTH/NUMBER_OF_FORMULA,Formula.height))
             pygame.draw.rect(screen,BLACK,pygame.Rect(self.position_X,self.position_Y,SCREEN_WIDTH/NUMBER_OF_FORMULA,Formula.height),Formula.line_thickness)
             formula_render=font.render(self.text,True,BLACK)
