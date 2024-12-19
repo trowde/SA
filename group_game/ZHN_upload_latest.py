@@ -56,12 +56,9 @@ class Player(pygame.sprite.Sprite):
         self.position_Y=y
         self.rect=pygame.Rect(self.position_X-Player.collider_width/2,self.position_Y,Player.collider_width,Player.collider_height)
     def base_figure(self):
-        self.rect=pygame.Rect(self.position_X-Player.collider_width/2,self.position_Y,Player.collider_width,Player.collider_height)
         text=f"{Player.number}"
         number_render=font.render(text,True,RED)
-        screen.blit(number_render,(self.position_X-10,self.position_Y-20))
-        screen.blit(image,(self.position_X-Player.width/2,self.position_Y))
-    def derivative_figure(self):
+        screen.blit(number_render,(self.position_X-20,self.position_Y-20))
         screen.blit(image,(self.position_X-Player.width/2,self.position_Y))
     @staticmethod
     def create_derivative_figure():
@@ -312,14 +309,15 @@ while running:
                     
         Other.player_figure[0].base_figure()
         Other.player_figure[0].move()
-        if Player.number<=20:
-            for i in range(1,Player.number):
-                Other.player_figure[i].derivative_figure()
-                Other.player_figure[i].move()
-        else:
-            for i in range(1,Player.number_upper_limit):
-                Other.player_figure[i].derivative_figure()
-                Other.player_figure[i].move()
+        for i in range(1,len(Other.player_figure)):
+            screen.blit(image,(Other.player_figure[i].position_X,Other.player_figure[i].position_Y))
+
+#        if Player.number<=20:
+#            for i in range(1,Player.number):
+ #               Other.player_figure[i].move()
+  #      else:
+   #         for i in range(1,Player.number_upper_limit):
+    #            Other.player_figure[i].move()
 
         for i in range(NUMBER_OF_FORMULA):
             Other.formulas[i].formula_move()
