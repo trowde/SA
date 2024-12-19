@@ -142,7 +142,7 @@ class Formula(pygame.sprite.Sprite):
                 self.formula_flag=1
                 self.text=random.choice(list(Formula.formula_dict.keys()))     
                 self.value=Formula.formula_dict[self.text]
-            elif flag==0:
+            else:
                 self.formula_flag=0
                 if self.operator=='*' or self.operator=='/':
                     self.value=random.uniform(0,3)
@@ -150,47 +150,47 @@ class Formula(pygame.sprite.Sprite):
                     self.value=random.randint(20,100)  
                 self.text=f"{self.operator}{self.value:.2f}"  
                       
-        self.position_Y=-200
+        self.position_Y=-250
 
 
 
 class heap():
-        heap_size=0
-        array=[]
-        array_max_5=[2,7,1,8,1]
-        @staticmethod
-        def heapify(index):
-            while 2*index+2<heap.heap_size and heap.array[index]<max(heap.array[2*index+1],heap.array[2*index+2]):
-                temp=index
-                if heap.array[2*index+1]>=heap.array[2*index+2]:
-                 heap.array[index],heap.array[2*index+1]=heap.array[2*index+1],heap.array[index]
-                 index=2*temp+1
-                else:
-                    heap.array[index],heap.array[2*index+2]=heap.array[2*index+2],heap.array[index]
-                    index=2*temp+2  
-            if 2*index+1<heap.heap_size and heap.array[index]<heap.array[2*index+1]:
-                  heap.array[index],heap.array[2*index+1]=heap.array[2*index+1],heap.array[index]
-        @staticmethod            
-        def heapify_process():
-                for i in range(heap.heap_size//2-1,-1,-1):
-                    heap.heapify(i)
-           
-        @staticmethod
-        def get_max():
-             max=heap.array[0]
-             heap.array[0],heap.array[heap.heap_size-1]=heap.array[heap.heap_size-1],heap.array[0]
-             heap.heap_size-=1
-             heap.array.pop()
-             heap.heapify(0)
-             return max
-        @staticmethod
-        def heap_insert(value):
-             heap.array.append(value)
-             heap.heap_size+=1
-        @staticmethod
-        def heap_clear():
-             heap.array.clear()
-             heap.heap_size=0
+    heap_size=0
+    array=[]
+    array_max_5=[2,7,1,8,1]
+    @staticmethod
+    def heapify(index):
+        while 2*index+2<heap.heap_size and heap.array[index]<max(heap.array[2*index+1],heap.array[2*index+2]):
+            temp=index
+            if heap.array[2*index+1]>=heap.array[2*index+2]:
+                heap.array[index],heap.array[2*index+1]=heap.array[2*index+1],heap.array[index]
+                index=2*temp+1
+            else:
+                heap.array[index],heap.array[2*index+2]=heap.array[2*index+2],heap.array[index]
+                index=2*temp+2  
+        if 2*index+1<heap.heap_size and heap.array[index]<heap.array[2*index+1]:
+                heap.array[index],heap.array[2*index+1]=heap.array[2*index+1],heap.array[index]
+    @staticmethod            
+    def heapify_process():
+        for i in range(heap.heap_size//2-1,-1,-1):
+            heap.heapify(i)
+        
+    @staticmethod
+    def get_max():
+        max=heap.array[0]
+        heap.array[0],heap.array[heap.heap_size-1]=heap.array[heap.heap_size-1],heap.array[0]
+        heap.heap_size-=1
+        heap.array.pop()
+        heap.heapify(0)
+        return max
+    @staticmethod
+    def heap_insert(value):
+        heap.array.append(value)
+        heap.heap_size+=1
+    @staticmethod
+    def heap_clear():
+        heap.array.clear()
+        heap.heap_size=0
     
 class Other(pygame.sprite.Sprite):
     background_speed=2
@@ -212,11 +212,11 @@ class Other(pygame.sprite.Sprite):
 
     @staticmethod
     def background_move(y,play_index):
-            screen.blit(background[Other.play_index],(0,y))
-            screen.blit(background[Other.play_index],(0,-SCREEN_HEIGHT+y))
+        screen.blit(background[Other.play_index],(0,y))
+        screen.blit(background[Other.play_index],(0,-SCREEN_HEIGHT+y))
     @staticmethod
     def collide_caculate():
-        if Other.formulas[0].position_Y+Formula.height==Other.player_figure[0].position_Y:
+        if Other.formulas[0].position_Y+Formula.height>=Other.player_figure[0].position_Y:
             nearest_index=0
             nearest_dis=abs((Other.player_figure[0].position_X+Player.width/2)-(Other.formulas[0].position_X+Formula.width/2))
             for i in range(1,4):
@@ -240,25 +240,24 @@ class Other(pygame.sprite.Sprite):
                     Other.play_index+=1
                     pygame.mixer.music.load(music[Other.play_index])
                     pygame.mixer.music.play(-1)
-            for j in range(4):
-                Other.formulas[j].formula_reset()            
-            for i in range(4):
-                if Other.formulas[i].operator=='+':
-                    for j in range(4):
-                        heap.heap_insert(heap.array_max_5[j]+Other.formulas[i].value)                           
-                elif Other.formulas[i].operator=='-':
-                    for j in range(4):
-                        heap.heap_insert(heap.array_max_5[j]-Other.formulas[i].value) 
-                elif Other.formulas[i].operator=='*':
-                    for j in range(4):
-                        heap.heap_insert(int(heap.array_max_5[j]*Other.formulas[i].value)) 
-                elif Other.formulas[i].operator=='/':
-                    for j in range(4):
-                        if Other.formulas[i].value == 0:
-                            game_over = False
-                        else:
-                            heap.heap_insert(heap.array_max_5[j]//Other.formulas[i].value) 
-                                
+            for j in range(4):          
+                for i in range(4):
+                    if Other.formulas[i].operator=='+':
+                        for j in range(4):
+                            heap.heap_insert(heap.array_max_5[j]+Other.formulas[i].value)                           
+                    elif Other.formulas[i].operator=='-':
+                        for j in range(4):
+                            heap.heap_insert(heap.array_max_5[j]-Other.formulas[i].value) 
+                    elif Other.formulas[i].operator=='*':
+                        for j in range(4):
+                            heap.heap_insert(int(heap.array_max_5[j]*Other.formulas[i].value)) 
+                    elif Other.formulas[i].operator=='/':
+                        for j in range(4):
+                            if Other.formulas[i].value == 0:
+                                game_over = False
+                            else:
+                                heap.heap_insert(heap.array_max_5[j]//Other.formulas[i].value) 
+                Other.formulas[j].formula_reset()                                  
             heap.heapify_process()
             for i in range(5):
                 heap.array_max_5[i]=heap.get_max()
