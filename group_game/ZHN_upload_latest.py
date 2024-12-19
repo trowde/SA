@@ -138,11 +138,11 @@ class Formula(pygame.sprite.Sprite):
         else:
             flag=random.randint(0,1)            
             if flag:
-                self.formula_flag=0
+                self.formula_flag=1
                 self.text=random.choice(list(Formula.formula_dict.keys()))     
                 self.value=Formula.formula_dict[self.text]
             else:
-                self.formula_flag=1
+                self.formula_flag=0
                 if self.operato=='*'|self.operato=='/':
                     self.value=random.uniform(0,3)
                 else:            
