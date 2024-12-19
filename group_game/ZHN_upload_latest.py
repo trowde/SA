@@ -291,9 +291,9 @@ while running:
         Other.collide_caculate()           
         Other.player_figure[0].position_X=max(0,min(Other.player_figure[0].position_X,SCREEN_WIDTH))
         Other.player_figure[0].position_Y=max(SCREEN_HEIGHT/2,min(Other.player_figure[0].position_Y,SCREEN_HEIGHT-Player.height*2))
-        for i in Other.player_figure:
-            i.position_X+=(Other.player_figure[0].position_X-i.position_X)   
-            i.position_Y+=(Other.player_figure[0].position_Y-i.position_Y)           
+     #   for i in Other.player_figure:
+          #  i.position_X+=(Other.player_figure[0].position_X-i.position_X)   
+       #     i.position_Y+=(Other.player_figure[0].position_Y-i.position_Y)           
         formual_num_text=font.render(f'Score:{Formula.current_index}', True, WHITE)
         screen.blit(formual_num_text, (20,20))
         Player.create_derivative_figure()   
@@ -311,8 +311,9 @@ while running:
                 game_over=True
                 Other.limit_score_flag=False
                     
+        for i in len(Other.player_figure):
+            Other.player_figure[i].move()
         Other.player_figure[0].base_figure()
-        Other.player_figure[0].move()
         for i in range(1,len(Other.player_figure)):
             screen.blit(image,(Other.player_figure[i].position_X,Other.player_figure[i].position_Y))
 
