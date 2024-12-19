@@ -110,18 +110,14 @@ class Formula(pygame.sprite.Sprite):
         self.text=f"{self.operator}{self.value}"
         self.rect=pygame.Rect(self.position_X,self.position_Y,SCREEN_WIDTH/Formula.number,Formula.height)
     def formula_move(self):
-        if self.formula_flag==0:
-            pygame.draw.rect(screen,WHITE,pygame.Rect(self.position_X,self.position_Y,SCREEN_WIDTH/NUMBER_OF_FORMULA,Formula.height))
-            pygame.draw.rect(screen,BLACK,pygame.Rect(self.position_X,self.position_Y,SCREEN_WIDTH/NUMBER_OF_FORMULA,Formula.height),Formula.line_thickness)
-            formula_render=font.render(self.text,True,BLACK)
-            screen.blit(formula_render,(self.position_X+20,self.position_Y+25))
+        if self.formula_flag == 0:
+            pygame.draw.rect(screen, WHITE, pygame.Rect(self.position_X, self.position_Y, SCREEN_WIDTH / NUMBER_OF_FORMULA, Formula.height))
+            pygame.draw.rect(screen, BLACK, pygame.Rect(self.position_X, self.position_Y, SCREEN_WIDTH / NUMBER_OF_FORMULA, Formula.height), Formula.line_thickness)
+            formula_render = font.render(self.text, True, BLACK)
+            screen.blit(formula_render, (self.position_X + 20, self.position_Y + 25))
         else:
-            if isinstance(self.text, str):
-                formula_render = font.render(self.text, True, BLACK)
-                screen.blit(formula_render, (self.position_X, self.position_Y))
-            else:
-            # それ以外の場合（pygame.Surfaceとして渡されている場合）
-                screen.blit(self.text, (self.position_X, self.position_Y))
+            screen.blit(self.text, (self.position_X, self.position_Y))
+
             
 
     def formula_reset(self):
@@ -142,16 +138,17 @@ class Formula(pygame.sprite.Sprite):
             self.text=f"{self.operator}{self.value}"                     
         else:
             flag=random.randint(0,1)            
-            if flag:
+            if flag==1:
                 self.formula_flag=1
                 self.text=random.choice(list(Formula.formula_dict.keys()))     
                 self.value=Formula.formula_dict[self.text]
-            else:
+            elif flag==0:
                 self.formula_flag=0
-                if self.operator=='*' or self.operator=='/':
+                if self.operato=='*'|self.operato=='/':
                     self.value=random.uniform(0,3)
                 else:            
-                    self.value=random.randint(20,100)   
+                    self.value=random.randint(20,100)  
+                self.text=f"{self.operator}{self.value}"  
                       
         self.position_Y=-50
 
@@ -223,7 +220,7 @@ class Other(pygame.sprite.Sprite):
             nearest_index=0
             nearest_dis=abs((Other.player_figure[0].position_X+Player.width/2)-(Other.formulas[0].position_X+Formula.width/2))
             for i in range(1,4):
-                temp=abs((Other.player_figure[0].position_X+Player.width/2)-(Other.formulas[i].position_X+Formula.width/2))
+                temp=abs((player_figure[0].position_X+Player.width/2)-(Other.formulas[i].position_X+Formula.width/2))
                 if temp<nearest_dis:
                     nearest_index=i
                     nearest_dis=temp
@@ -247,11 +244,7 @@ class Other(pygame.sprite.Sprite):
                     heap.heap_insert(int(heap.array_max_5[j]*Other.formulas[i].value)) 
             elif Other.formulas[i].operator=='/':
                 for j in range(4):
-                    if Other.formulas[i].value != 0:
-                        heap.heap_insert(heap.array_max_5[j]//Other.formulas[i].value) 
-                    else:
-                        show_game_over()
-                    
+                    heap.heap_insert(heap.array_max_5[j]//Other.formulas[i].value) 
                             
         heap.heapify_process()
         for i in range(5):
