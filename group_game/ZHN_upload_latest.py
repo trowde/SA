@@ -58,7 +58,7 @@ class Player(pygame.sprite.Sprite):
     def base_figure(self):
         self.rect=pygame.Rect(self.position_X-Player.collider_width/2,self.position_Y,Player.collider_width,Player.collider_height)
         text=f"{Player.number}"
-        number_render=font.render(text,True,(255,0,0))
+        number_render=font.render(text,True,RED)
         screen.blit(number_render,(self.position_X-10,self.position_Y-20))
         screen.blit(image,(self.position_X-Player.width/2,self.position_Y))
     def derivative_figure(self):
@@ -128,14 +128,14 @@ class Formula(pygame.sprite.Sprite):
                    self.value=random.uniform(0,3)
             else:            
                 self.value=random.randint(1,10)
-            self.text=f"{self.operator}{self.value}"        
+            self.text=f"{self.operator}{self.value:.2f}"        
         elif Other.play_index==1:
             self.formula_flag=0        
             if self.operator=='*'or self.operator=='/':
                    self.value=random.uniform(0,2)
             else:            
                 self.value=random.randint(20,100)   
-            self.text=f"{self.operator}{self.value}"                     
+            self.text=f"{self.operator}{self.value:.2f}"                     
         else:
             flag=random.randint(0,1)            
             if flag==1:
@@ -148,9 +148,9 @@ class Formula(pygame.sprite.Sprite):
                     self.value=random.uniform(0,3)
                 else:            
                     self.value=random.randint(20,100)  
-                self.text=f"{self.operator}{self.value}"  
+                self.text=f"{self.operator}{self.value:.2f}"  
                       
-        self.position_Y=-50
+        self.position_Y=-200
 
 
 
@@ -196,14 +196,14 @@ class Other(pygame.sprite.Sprite):
     background_speed=2
     background_position=0
     limit_score=1
-    limit_score_position_Y=-200
+    limit_score_position_Y=-500
     limit_score_text=font.render(f"{limit_score}",True,RED)
     norm=0 
     play_index=0
     player_figure=[]
     music_flag=False
     player_figure.append(Player(SCREEN_WIDTH/2,SCREEN_HEIGHT-200))
-    formulas=[Formula(0,-100,2,Formula.operator[0]),Formula(SCREEN_WIDTH/NUMBER_OF_FORMULA,-100,7,Formula.operator[0]),Formula(2*SCREEN_WIDTH/NUMBER_OF_FORMULA,-100,1,Formula.operator[0]),Formula(3*SCREEN_WIDTH/NUMBER_OF_FORMULA,-100,8,Formula.operator[0])]
+    formulas=[Formula(0,-200,2,Formula.operator[0]),Formula(SCREEN_WIDTH/NUMBER_OF_FORMULA,-200,7,Formula.operator[0]),Formula(2*SCREEN_WIDTH/NUMBER_OF_FORMULA,-200,1,Formula.operator[0]),Formula(3*SCREEN_WIDTH/NUMBER_OF_FORMULA,-200,8,Formula.operator[0])]
 
 
        # formulas.append(Formula(i*SCREEN_WIDTH/NUMBER_OF_FORMULA,-100,random.randint(1,10),Formula.operator[random.randint(0,3)]))
@@ -212,8 +212,8 @@ class Other(pygame.sprite.Sprite):
 
     @staticmethod
     def background_move(y,play_index):
-            screen.blit(background[3],(0,y))
-            screen.blit(background[3],(0,-SCREEN_HEIGHT+y))
+            screen.blit(background[Other.play_index],(0,y))
+            screen.blit(background[Other.play_index],(0,-SCREEN_HEIGHT+y))
     @staticmethod
     def collide_caculate():
         if Other.formulas[0].position_Y+Formula.height==Other.player_figure[0].position_Y:
@@ -232,7 +232,7 @@ class Other(pygame.sprite.Sprite):
                 Player.number=int(Player.number*Other.formulas[nearest_index].value)
             elif Other.formulas[nearest_index].operator=='/':
                 Player.number=Player.number//Other.formulas[nearest_index].value
-            if Formula.current_index%5==0:
+            if Formula.current_index%5==0 and Formula.current_index!=0:
                 Other.limit_score=heap.array_max_5[4]      
                 Other.limit_score_text=font.render(f"{Other.limit_score}",True,RED)                        
             if Other.play_index<=2:
