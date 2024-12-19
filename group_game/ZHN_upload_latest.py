@@ -114,7 +114,7 @@ class Formula(pygame.sprite.Sprite):
             pygame.draw.rect(screen, WHITE, pygame.Rect(self.position_X, self.position_Y, SCREEN_WIDTH / NUMBER_OF_FORMULA, Formula.height))
             pygame.draw.rect(screen, BLACK, pygame.Rect(self.position_X, self.position_Y, SCREEN_WIDTH / NUMBER_OF_FORMULA, Formula.height), Formula.line_thickness)
             formula_render = font.render(self.text, True, BLACK)
-            screen.blit(formula_render, (self.position_X + 20, self.position_Y + 95))
+            screen.blit(formula_render, (self.position_X + 50, self.position_Y + 50))
         else:
             operator_text=f"{self.operator}"  
             pygame.draw.rect(screen, WHITE, pygame.Rect(self.position_X, self.position_Y, SCREEN_WIDTH / NUMBER_OF_FORMULA, Formula.height))
@@ -239,12 +239,12 @@ class Other(pygame.sprite.Sprite):
                 Player.number=Player.number//Other.formulas[nearest_index].value
             if Formula.current_index%5==0 and Formula.current_index!=0:
                 Other.limit_score=heap.array_max_5[4]      
-                Other.limit_score_text=font.render(f"{Other.limit_score}",True,RED)                        
+                Other.limit_score_text=font.render(f"{Other.limit_score}",True,RED)
             if Other.play_index<=2:
                 if Formula.current_index%5==0:
                     Other.play_index+=1
                     pygame.mixer.music.load(music[Other.play_index])
-                    pygame.mixer.music.play(-1)
+                    pygame.mixer.music.play(-1)                                    
             for j in range(4):          
                 for i in range(4):
                     if Other.formulas[i].operator=='+':
