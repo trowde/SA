@@ -144,7 +144,7 @@ class Formula(pygame.sprite.Sprite):
                 self.value=Formula.formula_dict[self.text]
             elif flag==0:
                 self.formula_flag=0
-                if self.operato=='*'|self.operato=='/':
+                if self.operator=='*' or self.operator=='/':
                     self.value=random.uniform(0,3)
                 else:            
                     self.value=random.randint(20,100)  
@@ -220,7 +220,7 @@ class Other(pygame.sprite.Sprite):
             nearest_index=0
             nearest_dis=abs((Other.player_figure[0].position_X+Player.width/2)-(Other.formulas[0].position_X+Formula.width/2))
             for i in range(1,4):
-                temp=abs((player_figure[0].position_X+Player.width/2)-(Other.formulas[i].position_X+Formula.width/2))
+                temp=abs((Other.player_figure[0].position_X+Player.width/2)-(Other.formulas[i].position_X+Formula.width/2))
                 if temp<nearest_dis:
                     nearest_index=i
                     nearest_dis=temp
