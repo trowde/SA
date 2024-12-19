@@ -19,7 +19,7 @@ RED=(255,0,0)
 WHITE=(255,255,255)
 BLACK=(0,0,0)
 
-formula_extra=([pygame.image.load(f'lim_q{i}.png') for i in range(1,11)]+[pygame.image.load(f'integral_q{i}.png') for i in range(1,6)]
+formula_extra=([pygame.image.load(f'math_problem/math_problemlim_q{i}.png') for i in range(1,11)]+[pygame.image.load(f'math_problem/integral_q{i}.png') for i in range(1,6)]
 formula_extra=[pygame.transform.scale(formula,(SCREEN_WIDTH/NUMBER_OF_FORMULA,50)) for formula in formula_extra]
 
 
