@@ -257,7 +257,8 @@ class Other(pygame.sprite.Sprite):
                                 game_over = False
                             else:
                                 heap.heap_insert(heap.array_max_5[j]//Other.formulas[i].value) 
-                Other.formulas[j].formula_reset()                                  
+            for i in range(4):
+                Other.formulas[i].formula_reset()                                  
             heap.heapify_process()
             for i in range(5):
                 heap.array_max_5[i]=heap.get_max()
@@ -296,7 +297,7 @@ while running:
         if Other.background_position>SCREEN_HEIGHT:
             Other.background_position=0
         
-        if Formula.current_index%5==0:
+        if Formula.current_index%5==0 and Formula.current_index!=0:
             pygame.draw.rect(screen,WHITE,pygame.Rect(0,Other.limit_score_position_Y,SCREEN_WIDTH,25))
             screen.blit(Other.limit_score_text,(SCREEN_WIDTH/2,Other.limit_score_position_Y))
             Other.limit_score_position_Y+=2
