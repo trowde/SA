@@ -311,7 +311,7 @@ while running:
                 game_over=True
                 Other.limit_score_flag=False
                     
-        for i in len(Other.player_figure):
+        for i in range(len(Other.player_figure)):
             Other.player_figure[i].move()
         Other.player_figure[0].base_figure()
         for i in range(1,len(Other.player_figure)):
