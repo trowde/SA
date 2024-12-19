@@ -65,7 +65,7 @@ class Player(pygame.sprite.Sprite):
     @staticmethod
     def create_derivative_figure():
         if Player.number<=Player.number_upper_limit:
-             while len(Other.player_figure)>Player.number:
+            while len(Other.player_figure)>Player.number:
                  Other.player_figure.pop()
             while len(Other.player_figure)<Player.number:
                 Other.player_figure.append(Player(Other.player_figure[0].position_X+random.uniform(-25,25),Other.player_figure[0].position_Y+random.uniform(0,50)))
@@ -144,7 +144,7 @@ class Formula(pygame.sprite.Sprite):
                 else:            
                     self.value=random.randint(20,100)   
                       
-         self.position_Y=-50
+        self.position_Y=-50
 
 
 
@@ -196,7 +196,7 @@ class Other(pygame.sprite.Sprite):
     play_index=0
     player_figure=[]
     music.flag=False
-    player_figure.append(Player(SCREEN_WIDTH/2,SCREEN_HEIGHT-200))RED
+    player_figure.append(Player(SCREEN_WIDTH/2,SCREEN_HEIGHT-200))
     formulas=[Formula(0,-100,2,Formula.operator[0]),Formula(SCREEN_WIDTH/NUMBER_OF_FORMULA,-100,7,Formula.operator[0]),Formula(2*SCREEN_WIDTH/NUMBER_OF_FORMULA,-100,1,Formula.operator[0]),Formula(3*SCREEN_WIDTH/NUMBER_OF_FORMULA,-100,8,Formula.operator[0])]
 
 
@@ -212,14 +212,15 @@ class Other(pygame.sprite.Sprite):
     def collide_caculate():
         if Other.formulas[0].position_Y+Formula.height==Other.player_figure[0].position_Y:
             nearest_index=0
-            nearest_dis=abs((player_figure[0].position_X+Player.width/2)-(Other.formulas[0].position_X+Formula.width/2))
+            nearest_dis=abs((Other.player_figure[0].position_X+Player.width/2)-(Other.formulas[0].position_X+Formula.width/2))
             for i in range(1,4):
-                    if temp=abs((player_figure[0].position_X+Player.width/2)-(Other.formulas[i].position_X+Formula.width/2))<nearest_dis:
-                        nearest_index=i
-                        nearest_dis=temp
-                if Other.formulas[nearest_index].operator=='+':
+                temp=abs((player_figure[0].position_X+Player.width/2)-(Other.formulas[i].position_X+Formula.width/2))
+                if temp<nearest_dis:
+                    nearest_index=i
+                    nearest_dis=temp
+            if Other.formulas[nearest_index].operator=='+':
                 Player.number=Player.number+Other.formulas[nearest_index].value
-                elif Other.formulas[nearest_index].operator=='-':
+            elif Other.formulas[nearest_index].operator=='-':
                 Player.number=Player.number-Other.formulas[nearest_index].value
             elif Other.formulas[nearest_index].operator=='*':
                 Player.number=int(Player.number*Other.formulas[nearest_index].value)
@@ -255,7 +256,6 @@ class Other(pygame.sprite.Sprite):
                 pygame.mixer.music.play(-1)
         for j in range(4):
             Other.formulas[j].formula_reset()
-        break
     
 
 def show_game_over():
@@ -344,3 +344,5 @@ while running:
 
     clock.tick(60) 
     pygame.display.update()
+
+   
