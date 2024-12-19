@@ -240,30 +240,30 @@ class Other(pygame.sprite.Sprite):
                     Other.play_index+=1
                     pygame.mixer.music.load(music[Other.play_index])
                     pygame.mixer.music.play(-1)
-        for j in range(4):
-            Other.formulas[j].formula_reset()            
-        for i in range(4):
-            if Other.formulas[i].operator=='+':
-                for j in range(4):
-                    heap.heap_insert(heap.array_max_5[j]+Other.formulas[i].value)                           
-            elif Other.formulas[i].operator=='-':
-                for j in range(4):
-                    heap.heap_insert(heap.array_max_5[j]-Other.formulas[i].value) 
-            elif Other.formulas[i].operator=='*':
-                for j in range(4):
-                    heap.heap_insert(int(heap.array_max_5[j]*Other.formulas[i].value)) 
-            elif Other.formulas[i].operator=='/':
-                for j in range(4):
-                    if Other.formulas[i].value == 0:
-                        game_over = False
-                    else:
-                        heap.heap_insert(heap.array_max_5[j]//Other.formulas[i].value) 
-                            
-        heap.heapify_process()
-        for i in range(5):
-            heap.array_max_5[i]=heap.get_max()
-        heap.heap_clear()
-        Formula.current_index+=1
+            for j in range(4):
+                Other.formulas[j].formula_reset()            
+            for i in range(4):
+                if Other.formulas[i].operator=='+':
+                    for j in range(4):
+                        heap.heap_insert(heap.array_max_5[j]+Other.formulas[i].value)                           
+                elif Other.formulas[i].operator=='-':
+                    for j in range(4):
+                        heap.heap_insert(heap.array_max_5[j]-Other.formulas[i].value) 
+                elif Other.formulas[i].operator=='*':
+                    for j in range(4):
+                        heap.heap_insert(int(heap.array_max_5[j]*Other.formulas[i].value)) 
+                elif Other.formulas[i].operator=='/':
+                    for j in range(4):
+                        if Other.formulas[i].value == 0:
+                            game_over = False
+                        else:
+                            heap.heap_insert(heap.array_max_5[j]//Other.formulas[i].value) 
+                                
+            heap.heapify_process()
+            for i in range(5):
+                heap.array_max_5[i]=heap.get_max()
+            heap.heap_clear()
+            Formula.current_index+=1
 
     
 
@@ -304,6 +304,7 @@ while running:
             if Other.limit_score_position_Y+25>=Other.player_figure[0].position_Y:
                 if Other.limit_score>Player.number:
                     game_over=True
+                    
         Other.player_figure[0].base_figure()
         Other.player_figure[0].move()
         if Player.number<=20:
