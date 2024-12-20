@@ -53,7 +53,7 @@ class Player(pygame.sprite.Sprite):
     number_upper_limit=20
     animation_index = 0
     animation_speed = 10
-
+    time_stop=0
     def __init__(self,x,y):
         super().__init__()
         self.position_X=x       
@@ -332,7 +332,7 @@ while running:
         for i in range(1,len(Other.player_figure)):
             screen.blit(image[Player.animation_index],(Other.player_figure[i].position_X,Other.player_figure[i].position_Y))
         formual_num_text=font.render(f'Score:{Formula.current_index}', True, RED)  
-        pygame.draw.rect(screen, WHITE, pygame.Rect(0, 0, 150,80））           
+        pygame.draw.rect(screen, WHITE, pygame.Rect(0, 0, 150,80))           
         pygame.draw.rect(screen, BLACK, pygame.Rect(0, 0, 150, 80), 2)    
         screen.blit(formual_num_text, (30,20))
 #        if Player.number<=20:
