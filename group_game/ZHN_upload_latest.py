@@ -343,9 +343,9 @@ while running:
             Other.formulas[i].formula_move()
             Other.formulas[i].position_Y+=Formula.speed
         formual_num_text=font.render(f'Score:{Formula.current_index}', True, RED)  
-        pygame.draw.rect(screen, WHITE, pygame.Rect(0, 0, 150,80))           
-        pygame.draw.rect(screen, BLACK, pygame.Rect(0, 0, 150, 80), 2)    
-        screen.blit(formual_num_text, (30,20))
+        pygame.draw.rect(screen, WHITE, pygame.Rect(0, 450, 150,80))           
+        pygame.draw.rect(screen, BLACK, pygame.Rect(0, 450, 150, 80), 2)    
+        screen.blit(formual_num_text, (30,475))
 
         if Player.number<=0:
             # running=False
