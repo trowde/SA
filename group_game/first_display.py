@@ -89,7 +89,7 @@ def main():
                 if button_x <= event.pos[0] <= button_x + button_w and button_y <= event.pos[1] <= button_y + button_h:
                     pygame.mixer.music.stop()  # BGMを停止
                     # game.pyを実行する
-                    subprocess.run(["python", "game.py"])  # Windowsの場合は "python" に変更
+                    subprocess.run(["python", "main.py"])  # Windowsの場合は "python" に変更
                     pygame.quit()
                     sys.exit()
 
