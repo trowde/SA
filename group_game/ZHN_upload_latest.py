@@ -93,7 +93,7 @@ class Player(pygame.sprite.Sprite):
 class Formula(pygame.sprite.Sprite):
     current_index=0
     number=4
-    speed=2
+    speed=1
     width=SCREEN_WIDTH/NUMBER_OF_FORMULA
     height=150
     operator=['+','-','*','/']
@@ -204,7 +204,7 @@ class heap():
         heap.heap_size=0
     
 class Other(pygame.sprite.Sprite):
-    background_speed=2
+    background_speed=1
     background_position=0
     limit_score=1
     limit_score_position_Y=0
@@ -255,6 +255,8 @@ class Other(pygame.sprite.Sprite):
                 if Other.play_index<=2:
                     if Formula.current_index%5==0 and Formula.current_index!=0:
                         Other.limit_score_flag=True
+                        Formula.speed=2
+                        Other.background_speed=2
                         Other.play_index+=1
                         pygame.mixer.music.load(music[Other.play_index])
                         pygame.mixer.music.play(-1)                                            
@@ -329,7 +331,7 @@ while running:
         for i in range(1,len(Other.player_figure)):
             screen.blit(image[Player.animation_index],(Other.player_figure[i].position_X,Other.player_figure[i].position_Y))
         formual_num_text=font.render(f'Score:{Formula.current_index}', True, RED)  
-        pygame.draw.rect(screen, WHITE, pygame.Rect(0, 0, 150,80))         
+        pygame.draw.rect(screen, WHITE, pygame.Rect(0, 0, 150,80））           
         pygame.draw.rect(screen, BLACK, pygame.Rect(0, 0, 150, 80), 2)    
         screen.blit(formual_num_text, (30,20))
 #        if Player.number<=20:
