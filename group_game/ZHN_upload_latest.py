@@ -237,48 +237,49 @@ class Other(pygame.sprite.Sprite):
                 if temp<nearest_dis:
                     nearest_index=i
                     nearest_dis=temp
-           # if Other.formulas[nearest_index].value==-1：
-            
-            if Other.formulas[nearest_index].operator=='+':
-                Player.number=Player.number+Other.formulas[nearest_index].value
-            elif Other.formulas[nearest_index].operator=='-':
-                Player.number=Player.number-Other.formulas[nearest_index].value
-            elif Other.formulas[nearest_index].operator=='*':
-                Player.number=int(Player.number*Other.formulas[nearest_index].value)
-            elif Other.formulas[nearest_index].operator=='/':
-                Player.number=Player.number//Other.formulas[nearest_index].value
-            if Formula.current_index%5==0 and Formula.current_index!=0:
-                Other.limit_score=heap.array_max_5[4]      
-                Other.limit_score_text=font.render(f"{Other.limit_score}",True,RED)
-                heap.array_max_5=[Player.number] * 5   
-            if Other.play_index<=2:
+            if Other.formulas[nearest_index].value==-1:
+                game_over=True
+            else:                          
+                if Other.formulas[nearest_index].operator=='+':
+                    Player.number=Player.number+Other.formulas[nearest_index].value
+                elif Other.formulas[nearest_index].operator=='-':
+                    Player.number=Player.number-Other.formulas[nearest_index].value
+                elif Other.formulas[nearest_index].operator=='*':
+                    Player.number=int(Player.number*Other.formulas[nearest_index].value)
+                elif Other.formulas[nearest_index].operator=='/':
+                    Player.number=Player.number//Other.formulas[nearest_index].value
                 if Formula.current_index%5==0 and Formula.current_index!=0:
-                    Other.limit_score_flag=True
-                    Other.play_index+=1
-                    pygame.mixer.music.load(music[Other.play_index])
-                    pygame.mixer.music.play(-1)                                            
-            for i in range(4):
-                if Other.formulas[i].operator=='+':
-                     for j in range(4):
-                         heap.heap_insert(heap.array_max_5[j]+Other.formulas[i].value)                           
-                elif Other.formulas[i].operator=='-':
-                    for j in range(4):
-                         heap.heap_insert(heap.array_max_5[j]-Other.formulas[i].value) 
-                elif Other.formulas[i].operator=='*':
-                     for j in range(4):
-                         heap.heap_insert(int(heap.array_max_5[j]*Other.formulas[i].value)) 
-                elif Other.formulas[i].operator=='/':
-                    for j in range(4):
-                        if Other.formulas[i].value == 0:
-                            heap.heap_insert(0)                      
-                        else:
-                            heap.heap_insert(heap.array_max_5[j]//Other.formulas[i].value) 
-            for i in range(4):
-                Other.formulas[i].formula_reset()                                  
-            heap.heapify_process()
-            for i in range(5):
-                heap.array_max_5[i]=heap.get_max()
-            heap.heap_clear()
+                    Other.limit_score=heap.array_max_5[4]      
+                    Other.limit_score_text=font.render(f"{Other.limit_score}",True,RED)
+                    heap.array_max_5=[Player.number] * 5   
+                if Other.play_index<=2:
+                    if Formula.current_index%5==0 and Formula.current_index!=0:
+                        Other.limit_score_flag=True
+                        Other.play_index+=1
+                        pygame.mixer.music.load(music[Other.play_index])
+                        pygame.mixer.music.play(-1)                                            
+                for i in range(4):
+                    if Other.formulas[i].operator=='+':
+                        for j in range(4):
+                            heap.heap_insert(heap.array_max_5[j]+Other.formulas[i].value)                           
+                    elif Other.formulas[i].operator=='-':
+                        for j in range(4):
+                            heap.heap_insert(heap.array_max_5[j]-Other.formulas[i].value) 
+                    elif Other.formulas[i].operator=='*':
+                        for j in range(4):
+                            heap.heap_insert(int(heap.array_max_5[j]*Other.formulas[i].value)) 
+                    elif Other.formulas[i].operator=='/':
+                        for j in range(4):
+                            if Other.formulas[i].value == 0:
+                                heap.heap_insert(0)                      
+                            else:
+                                heap.heap_insert(heap.array_max_5[j]//Other.formulas[i].value) 
+                for i in range(4):
+                    Other.formulas[i].formula_reset()                                  
+                heap.heapify_process()
+                for i in range(5):
+                    heap.array_max_5[i]=heap.get_max()
+                heap.heap_clear()
 
 
     
@@ -328,9 +329,9 @@ while running:
         for i in range(1,len(Other.player_figure)):
             screen.blit(image[Player.animation_index],(Other.player_figure[i].position_X,Other.player_figure[i].position_Y))
         formual_num_text=font.render(f'Score:{Formula.current_index}', True, RED)  
-        pygame.draw.rect(screen, WHITE, pygame.Rect(0, 0, 100,80))           
-        pygame.draw.rect(screen, BLACK, pygame.Rect(0, 0, 100, 80), 2)    
-        screen.blit(formual_num_text, (45,40))
+        pygame.draw.rect(screen, WHITE, pygame.Rect(0, 0, 150,80））           
+        pygame.draw.rect(screen, BLACK, pygame.Rect(0, 0, 150, 80), 2)    
+        screen.blit(formual_num_text, (30,20))
 #        if Player.number<=20:
 #            for i in range(1,Player.number):
  #               Other.player_figure[i].move()
