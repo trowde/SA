@@ -27,7 +27,7 @@ formula_extra=[pygame.transform.scale(formula,(SCREEN_WIDTH/NUMBER_OF_FORMULA-30
 
 #initiate
 screen=pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
-pygame.display.set_caption('group_game')
+pygame.display.set_caption('LastWar')
 #background=[pygame.image.load('level1.jpg'),pygame.image.load('level2.jpg'),pygame.image.load('level3.jpg'),pygame.image.load('level4.jpg')]
 #music=['level1.mp3','level2.mp3','level3.mp3','level4.mp3']
 background=[pygame.image.load(f'level{i}.jpg') for i in range(1,5)]
